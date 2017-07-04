@@ -1,0 +1,21 @@
+<% layout( 'layout' ) -%>
+
+<h1 id="page-title"><%= title %></h1>
+
+<div id="list">
+  
+
+<% categories.forEach( function ( categories ){ %>
+  <div class="item">
+  <a data-toggle="collapse" data-target="#demo_<%= categories._id %>"><%= categories.content %></a>
+
+  			<% sub_categories.forEach( function ( sub_categories ){ %>
+
+				  <div id="demo_<%= categories._id %>" class="collapse">
+				 <a><%= sub_categories.content %></a>
+				</div>
+
+			<% }); %>
+  </div>
+<% }); %>
+</div>

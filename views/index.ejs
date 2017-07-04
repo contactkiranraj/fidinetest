@@ -1,0 +1,47 @@
+<% layout( 'layout' ) -%>
+<h1 id="page-title"><%= title %></h1>
+<body  ng-app="myApp">
+<div id="list">
+<p> Add categories</p>
+  <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="content" />
+    </div>
+
+  </form>
+
+<% categories.forEach( function ( categories ){ %>
+  <div class="item" ng-controller="item_control">
+    <a ng-click="myFunc()" data-toggle="collapse" id="x_<%= categories._id %>" data-target="#demo_<%= categories._id %>"" title="Update this todo item"><%= categories.content %></a>
+
+    <a class="del-btn" href="/destroy/<%= categories._id %>" title="Delete this todo item">Delete</a>
+    	<div id="demo_<%= categories._id %>"  class="collapse">
+         	<form id="cat" action="/createsub/<%= categories._id %>" method="post" accept-charset="utf-8">
+    			<div class="item-new">
+      				<input class="input" type="text" name="content" />
+  	   			 </div>
+		    </form>
+		    	<% sub_categories.forEach( function ( sub_categories ){ %>
+				  <div class="sub_item">
+				    <a><%= sub_categories.content %></a>
+				  </div>
+				<% }); %>
+   		 </div>
+  </div>
+<% }); %>
+</div>
+</body>
+
+<script>
+angular.module('myApp', [])
+.controller('item_control', ['$scope','$http', function($scope, $http) {
+    $scope.count = 0;
+    $scope.myFunc = function() {
+    	$http.get('/customer').then(function(data) {
+    	alert(2);
+           console.log(data);
+    });
+    };
+}]);
+
+</script>

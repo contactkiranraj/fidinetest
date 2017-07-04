@@ -1,0 +1,33 @@
+<% layout( 'layout' ) -%>
+
+<h1 id="page-title"><%= title %></h1>
+<div id="list">
+  <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="content" />
+    </div>
+  </form>
+
+<% categories.forEach( function ( categories ){ %>
+  <% if( categories._id == current ){ %>
+  <div class="item-new">
+  <% }else{ %>
+  <div class="item">
+  <% } %>
+
+    <% if( categories._id == current ){ %>
+    <form class="update-form" action="/update/<%= categories._id %>" method="post" accept-charset="utf-8">
+      <input class="update-input" type="text" name="content" value="<%= categories.content %>" />
+    </form>
+    <% }else{ %>
+    <a class="update-link" href="/edit/<%= categories._id %>" title="Update this categories item"><%= categories.content %></a>
+    <% } %>
+
+    <% if( categories._id == current ){ %>
+    <a class="del-btn-edit" href="/destroy/<%= categories._id %>" title="Delete this categories item">Delete</a>
+    <% }else{ %>
+    <a class="del-btn" href="/destroy/<%= categories._id %>" title="Delete this categories item">Delete</a>
+    <% } %>
+  </div>
+<% }); %>
+</div>
